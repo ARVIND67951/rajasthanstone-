@@ -1,0 +1,426 @@
+<!--
+STONE SITE — Pure HTML/CSS/JS version
+Fully animated stone website with image slider.
+No frameworks required — just open this file in a browser.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rajasthan Stone Article</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; color: #222; background: #8615ba27; overflow-x: hidden; }
+    header { position:relative; top:0; left:0; width:100%; background: rgba(255, 255, 255, 0.228); backdrop-filter: blur(10px); display:flex; justify-content:space-between; align-items:center; padding:15px 40px; z-index:1000; }
+    header .logo { display:flex; align-items:center; font-weight:700; font-size:1.2rem; }
+    header nav a { margin-left:25px; text-decoration:none; color:#333; transition:0.3s; }
+    header nav a:hover { color:#555; }
+
+    .slider { position:relative; height:90vh; 
+   
+      overflow:hidden; }
+    .slides { display:flex; transition:transform 1s ease; }
+    .slide { min-width:100%; height:80vh; position:relative; }
+    .slide img { width:100%; height:100%;object-fit:cover; filter:brightness(0.8); }
+
+    .slider-content { position:absolute; top:50%; left:10%; transform:translateY(-50%); color:white; max-width:600px; }
+    .slider-content h1 { font-size:3rem; font-weight:700; text-shadow:0 3px 10px rgba(0,0,0,0.4); }
+    .slider-content p { margin-top:20px; font-size:1.1rem; line-height:1.6; }
+    .slider-content a { display:inline-block; margin-top:25px; padding:12px 28px; border-radius:30px; background:#444; color:white; text-decoration:none; transition:0.3s; }
+    .slider-content a:hover { background:#222; transform:scale(1.05); }
+
+    .nav-btns { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px; }
+    .nav-btns button { width:14px; height:14px; border-radius:50%; border:none; background:white; opacity:0.6; cursor:pointer; transition:0.3s; }
+    .nav-btns button.active { opacity:1; background:#222; }
+
+    section { padding:100px 60px; max-width:1200px; margin:auto; }
+    h2 { font-size:2rem; margin-bottom:20px; }
+    p { color:#555; }
+
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:40px; }
+    .card { background:white; border-radius:16px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.1); transition:0.3s; }
+    .card:hover { transform:translateY(-6px); 
+    box-shadow:rgba(22, 184, 184, 0.281) 5px 10px;
+    }
+    .card img { width:100%; height:100%; object-fit:cover; }
+    .card .info { padding:10px; }
+
+    footer { background:#111; color:#aaa; text-align:center; padding:40px 20px; }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header { padding: 10px 20px; }
+      header .logo { font-size: 1rem; }
+      header nav a { margin-left: 15px; font-size: 0.9rem; }
+
+      .slider-content { left: 5%; max-width: 90%; }
+      .slider-content h1 { font-size: 2rem; }
+      .slider-content p { font-size: 1rem; }
+      .slider-content a { padding: 10px 20px; font-size: 0.9rem; }
+
+      section { padding: 60px 20px; }
+      h2 { font-size: 1.5rem; }
+      .grid { grid-template-columns: 1fr; gap: 20px; }
+
+      .card .info { padding: 8px; }
+      .card .info h3 { font-size: 1rem; }
+      .card .info p { font-size: 0.9rem; }
+
+      footer { padding: 20px 10px; font-size: 0.9rem; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      header { padding: 12px 30px; }
+      .slider-content h1 { font-size: 2.5rem; }
+      .slider-content p { font-size: 1rem; }
+      section { padding: 80px 40px; }
+      .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    }
+/* Cart Css */
+
+/**** Sass Variables ****/
+
+
+
+
+
+/* .container {
+  max-width: 900px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+} */
+
+
+.card-wrapper {
+  width: 400px;
+  height: 500px;
+  position: relative;
+  display: ;
+}
+
+.card {
+  position: absolute;
+  
+  width: 350px;
+  height: 450px;
+  /* transform: translate(-50%, -50%); */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: 0.5s;
+  
+  .card-image {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #000;
+    transition: .5s;
+  }
+  
+  &:hover img {
+    opacity: 0.4;
+    transition: .5s;
+  }
+}
+
+.card:hover .card-image {
+  /* transform: translateY(-100px); */
+  transition: all .9s;
+}
+
+/**** Social Icons *****/
+
+.social-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  
+  li {
+    list-style: none;
+    
+    a {
+      position: relative;
+      display: block;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      background: #cf16df;
+      font-size: 23px;
+      color: #333;
+      font-weight: bold;
+      margin: 0 10px;
+      padding: 10px;
+      transition: .4s;
+      /* transform: translateY(200px); */
+      opacity: 0;
+    } 
+  }
+}
+
+.card:hover .social-icons li a {
+  transform: translateY(0px);
+  opacity: 1; 
+}
+
+.social-icons li a:hover {
+  background: #18a2ba; 
+  transition: .2s;
+  .fab {
+    color: #9a1ab07d;
+  } 
+}
+
+.social-icons li a .fab {
+  transition: .8s;
+    
+  &:hover {
+      transform: rotateY(360deg);
+      color: #b00de18c;
+  } 
+}
+
+.card:hover li:nth-child(1) a {
+    transition-delay: 0.1s;
+}
+.card:hover li:nth-child(2) a {
+  transition-delay: 0.2s;
+}
+.card:hover li:nth-child(3) a {
+  transition-delay: 0.3s;
+}
+.card:hover li:nth-child(4) a {
+  transition-delay: 0.4s;
+}
+
+/**** Personal Details ****/
+
+.details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 120px;
+  z-index: 1;
+  padding: 10px;
+
+  h2 {
+    margin: 30px 0;
+    padding: 0;
+    text-align: center;
+     
+    .job-title {
+        font-size: 1rem;
+        line-height: 2.5rem;
+        color: #333;
+        font-weight: 300;
+    }
+  }
+}
+
+.jane {
+  position: absolute;
+  bottom: -120px;
+  left: 0;
+  opacity: 0;
+  background: #fff;
+  width: 100%;
+  height: 120px;
+  z-index: 3;
+  padding: 10px;
+  transition: .4s;
+}
+
+.profile-two .social-icons li a {
+  border-radius: 50%;
+}
+
+.card:hover .profile-img--two {
+  transform: rotateY(180deg);
+}
+
+.card:hover .jane {
+  bottom: 0;
+  left: 0;
+  transition-delay: 0.5s;
+  opacity: 1;
+}
+
+
+/* Cart css end */
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"> <a  href="#" ><img src="R__4_-removebg-preview.png" alt="StoneCraft Logo" style="width: 50px; height: 50px;"/></a></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#collections">Collections</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="slider">
+    <div class="slides">
+      <div class="slide"><img src="Project Image/Outdoor-Stone-Gazebos.jpg" alt="Stone 1"></div>
+      <div class="slide"><img src="Project Image/outdoor-fountains.jpeg" alt="Stone 2"></div>
+      <div class="slide"><img src="Project Image/Stone-Buddha-Statue.jpeg" alt="Stone 3"></div>
+    </div>
+    <div class="slider-content">
+      <h1>Rajasthan Stone Article</h1>
+      <p style="color: #e1e1e1;">Premium marble, granite and engineered stone — curated finishes, precision craftsmanship and sustainable sourcing.</p>
+      <a href="#collections">Explore Collections</a>
+    </div>
+    <div class="nav-btns"></div>
+  </div>
+
+  <section id="about">
+    <h2>About StoneCraft</h2>
+    <p>At StoneCraft we handpick stone from responsible quarries and finish each slab with artful precision. Our portfolio spans classic marble veining to contemporary honed finishes that stand the test of time.</p>
+  </section>
+
+  <section id="collections">
+    <h2>Featured Collections</h2>
+    <div class="card-wrapper">
+      
+      <div class="card profile-two">
+        
+        <div class="card-image profile-img--two">
+          <img src="Project Image/1-11-300x300.jpg" alt="profile two">
+        </div>
+
+        <ul class="social-icons">
+          <li>
+            <a href="tel:+91-9414622023">
+           <i class="fab"> <img src="https://img.icons8.com/?size=100&id=KKBDB20a4V6t&format=png&color=000000" alt="" ></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://api.whatsapp.com/send?phone=917976272202" onclick="return gtag_report_conversion('https://api.whatsapp.com/send?phone=917976272202');">
+              <i class="fab"> <img src="https://img.icons8.com/?size=100&id=16713&format=png&color=000000" alt=""></i>
+            </a>
+          </li>
+        </ul>
+
+        <div class="details jane">
+            <h2>Jane Doe
+              <br>
+              <span class="job-title">UI Designer</span>
+            </h2>
+        </div>
+        
+    </div>
+   
+    </div>
+    
+    
+ </div><!-- END box wrapper -->
+     
+ </div><!-- END container -->
+  </section>
+  <!-- <div class="container">
+    
+    <div class="card-wrapper">
+      
+      <div class="card">
+        
+        <div class="card-image">
+          <img src="https://image.ibb.co/dUTfmJ/profile_img.jpg" alt="profile one">
+        </div>
+
+      <ul class="social-icons">
+        <li>
+          <a href="">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fab fa-dribbble"></i>
+          </a>
+        </li>
+      </ul>
+
+      <div class="details">
+        <h2>John Smith
+          <br>
+          <span class="job-title">UI Developer</span>
+        </h2>
+      </div>
+    </div>
+  </div>end box wrapper --> 
+    
+    
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Tell us about your project and we’ll respond with options and pricing.</p>
+    <form style="margin-top:20px; max-width:400px;">
+      <input type="text" placeholder="Name" style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1px solid #ccc;">
+      <input type="email" placeholder="Email" style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1px solid #ccc;">
+      <textarea placeholder="Project Details" style="width:100%;height:120px;padding:10px;border-radius:8px;border:1px solid #ccc;"></textarea>
+      <button type="button" style="margin-top:10px;padding:10px 20px;background:#444;color:white;border:none;border-radius:8px;cursor:pointer;">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    © <span id="year"></span> StoneCraft — Crafted stone by artisans. All rights reserved.
+  </footer>
+
+  <script>
+    const slides = document.querySelector('.slides');
+    const navBtnsContainer = document.querySelector('.nav-btns');
+    const slideCount = document.querySelectorAll('.slide').length;
+    let currentIndex = 0;
+
+    for(let i=0; i<slideCount; i++) {
+      const btn = document.createElement('button');
+      if(i===0) btn.classList.add('active');
+      btn.addEventListener('click', ()=> moveToSlide(i));
+      navBtnsContainer.appendChild(btn);
+    }
+
+    const navBtns = navBtnsContainer.querySelectorAll('button');
+
+    function moveToSlide(index) {
+      currentIndex = index;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      navBtns.forEach((b,i)=> b.classList.toggle('active', i===index));
+    }
+
+    setInterval(()=> {
+      currentIndex = (currentIndex + 1) % slideCount;
+      moveToSlide(currentIndex);
+    }, 5000);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+   <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+</body>
+</html>
